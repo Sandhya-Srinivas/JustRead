@@ -113,7 +113,7 @@ public class AddBooksActivity extends AppCompatActivity {
             System.out.println("Exception in AddBooksActivity: " + e);
         }
 
-        String regex_book = "^[A-Za-z0-9_.+@!*]+$";
+        String regex_book = "^[A-Za-z0-9][A-Za-z0-9_.+@!* ]*$";
         Pattern pattern_book = Pattern.compile(regex_book);
         if(!pattern_book.matcher(bookname).matches()){
             isvalid = false;

@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:text="@string/login"
+        android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30dp" />
@@ -45,6 +46,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:layout_margin="10dp"
+        android:inputType="textPassword"
         />
 
     <Button

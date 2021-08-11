@@ -23,7 +23,7 @@ import java.util.List;
 
 public class BooksRVAdapter extends RecyclerView.Adapter<BooksRVAdapter.ViewHolder> {
 
-    private List<BookModel> bookslist;
+    private static List<BookModel> bookslist;
 
     public BooksRVAdapter(List<BookModel> bookslist) {
         this.bookslist = bookslist;
@@ -51,22 +51,22 @@ public class BooksRVAdapter extends RecyclerView.Adapter<BooksRVAdapter.ViewHold
                 holder.notread.setText("Completed");
                 holder.itemView.setBackgroundColor(Color.rgb(173, 255, 173));
             }
-            holder.clear_fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int bookid = bookslist.get(position).getBookId();
-                    DataBaseHelper bookDataBaseHelper = new DataBaseHelper(v.getContext());
-                    boolean success = bookDataBaseHelper.deletebook(bookid);
-                    System.out.println("Success- BooksRVAdapter: " + success);
-                    // TODO: Stuck here. But found a kind of temporary solution - Should find a way to update 'position' variable
-//                    bookslist.remove(holder.getAdapterPosition());
-//                    System.out.println("BooksRVAdapter 1: " + bookslist.get(holder.getAdapterPosition()).getBookname());
-//                    BooksRVAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
-//                    holder.itemView.getRootView().postInvalidate();
-                    holder.itemView.setVisibility(View.GONE);
-//                    BooksRVAdapter.this.notifyDataSetChanged();
-                }
-            });
+//            holder.clear_fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    int bookid = bookslist.get(position).getBookId();
+//                    DataBaseHelper bookDataBaseHelper = new DataBaseHelper(v.getContext());
+//                    boolean success = bookDataBaseHelper.deletebook(bookid);
+//                    System.out.println("Success- BooksRVAdapter: " + success);
+//                    // TODO: Stuck here. But found a kind of temporary solution - Should find a way to update 'position' variable
+////                    bookslist.remove(holder.getAdapterPosition());
+////                    System.out.println("BooksRVAdapter 1: " + bookslist.get(holder.getAdapterPosition()).getBookname());
+////                    BooksRVAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+////                    holder.itemView.getRootView().postInvalidate();
+//                    holder.itemView.setVisibility(View.GONE);
+////                    BooksRVAdapter.this.notifyDataSetChanged();
+//                }
+//            });
         }
     }
 
@@ -90,6 +90,25 @@ public class BooksRVAdapter extends RecyclerView.Adapter<BooksRVAdapter.ViewHold
             bookcategory = bookview.findViewById(R.id.one_book_category);
             notread = bookview.findViewById(R.id.one_book_read);
             clear_fab = bookview.findViewById(R.id.one_book_clear_fab);
+
+            clear_fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int bookid = bookslist.get(getAdapterPosition()).getBookId();
+                    DataBaseHelper bookDataBaseHelper = new DataBaseHelper(v.getContext());
+                    boolean success = bookDataBaseHelper.deletebook(bookid);
+                    System.out.println("Success- BooksRVAdapter: " + success);
+                    // TODO: Stuck here. But found a kind of temporary solution - Should find a way to update 'position' variable
+//                    bookslist.remove(holder.getAdapterPosition());
+//                    System.out.println("BooksRVAdapter 1: " + bookslist.get(holder.getAdapterPosition()).getBookname());
+//                    BooksRVAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                    itemView.getRootView().postInvalidate();
+//                    itemView.setVisibility(View.GONE);
+                    this.notify();
+                }
+            });
+
         }
     }
 }
